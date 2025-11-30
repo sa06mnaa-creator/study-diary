@@ -7,8 +7,17 @@
     </head>
     <body>
         <nav class="navbar nabvar-expand-lg nabvar-light bg-light">
-            <a class="navbar-brand" href="{% url 'accounts:home' %}">ホーム</a>
+            <div class="container">
+            <a class="navbar-brand" href="{% url 'accounts:home' %}">study diary</a>
+            {% if user.is_authenticated %}
+            {% else %}
+                <a class="navbar-brand" href="{% url 'accounts:regist' %}">登録</a>
+            {% endif %}
+           
+        </div>
         </nav> 
-        {% block content %}{% endblock %}
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>    
     </body>   
 </html>
