@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . import forms 
+from . forms import RegistForm
 
 def home(request):
     return render(
@@ -7,12 +7,12 @@ def home(request):
     )
 
 def regist(request):
-    regist_form = forms.RegistForm(request.POST or None)
-    if regist_form.is_valid():
-        regist_form.save(commit=True)
+    form = RegistForm(request.POST or None)
+    if form.is_valid():
+        form.save(commit=True)
         return redirect('accounts:home')
     return render(
         request,'accounts/regist.html',context={
-            'regist_form': regist_form,
+            'regist_form': form,
         }
     )
