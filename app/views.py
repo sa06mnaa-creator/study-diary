@@ -1,3 +1,4 @@
+from . import forms
 from uuid import uuid4
 from django.shortcuts import render, redirect
 from . forms import RegistForm
@@ -5,6 +6,7 @@ from . models import UserActivateToken
 from django.contrib import messages
 from datetime import timedelta
 from django.utils import timezone
+from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -51,10 +53,10 @@ def activate_user(request, token):
         }
     )
 def user_login(request):
-    login_form = forms.LoginForm(request.POST or None)
+    login_form = LoginForm(request.POST or None)
     if login_form.is_valid():
-        email = login_form['email']
-        password = login_form['password']
+        email = login_form.cleaned_data['email']
+        password = login_form.cleaned_data['password']
         user = authenticate(email=email, password=password)
         if user:
             login(request, user)
@@ -71,3 +73,4 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('accounts:home')
+

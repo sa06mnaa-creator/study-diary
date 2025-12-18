@@ -48,6 +48,7 @@ class RegistForm(forms.ModelForm):
     
     class UserActivateForm(forms.Form):
          token = forms.CharField(widget=forms.HiddenInput())
-    class LoginForm(forms.Form):
+class LoginForm(forms.Form):
          email = forms.EmailField(label="メールアドレス")
          password = forms.CharField(label="パスワード", widget=forms.PasswordInput())
+
